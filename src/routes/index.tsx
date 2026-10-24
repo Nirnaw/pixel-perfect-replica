@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Instagram, MapPin, Navigation } from "lucide-react";
-import heroImg from "/images/hero.jpg?url";
+const heroImg = "/images/hero.jpg";
 import { galleryQuery, mapDirections, mapEmbed, postsQuery, productsQuery, servicesQuery, settingsQuery } from "@/lib/content";
 import { seo } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
