@@ -16,7 +16,7 @@ export const Route = createFileRoute("/contact")({
   loader: ({ context }) => context.queryClient.ensureQueryData(servicesQuery),
   head: () => ({ meta: seo("تماس و درخواست نوبت", "درخواست نوبت آنلاین، شماره تماس بخش پوست و لیزر، آدرس و مسیریابی مجتمع پزشکی و زیبایی پردیس بابل.") }),
   component: Contact,
-  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{error.message}</div>,
+  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{String((error as Error)?.message ?? error)}</div>,
   notFoundComponent: () => <div className="container-page py-20">یافت نشد.</div>,
 });
 

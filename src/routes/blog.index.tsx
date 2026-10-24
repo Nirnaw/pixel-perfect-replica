@@ -9,7 +9,7 @@ export const Route = createFileRoute("/blog/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(postsQuery),
   head: () => ({ meta: seo("مقالات پوست و زیبایی", "مقالات آموزشی مجتمع پردیس درباره مراقبت از پوست، محافظت از آفتاب و آمادگی پیش از لیزر.") }),
   component: Blog,
-  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{error.message}</div>,
+  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{String((error as Error)?.message ?? error)}</div>,
   notFoundComponent: () => <div className="container-page py-20">یافت نشد.</div>,
 });
 

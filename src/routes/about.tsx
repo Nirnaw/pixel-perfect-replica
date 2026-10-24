@@ -9,7 +9,7 @@ export const Route = createFileRoute("/about")({
   loader: ({ context }) => context.queryClient.ensureQueryData(doctorsQuery),
   head: () => ({ meta: seo("درباره ما و پزشکان", "آشنایی با مجتمع پزشکی و زیبایی پردیس بابل و پزشکان مجموعه به مدیریت دکتر شاهین غلامی.") }),
   component: About,
-  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{error.message}</div>,
+  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{String((error as Error)?.message ?? error)}</div>,
   notFoundComponent: () => <div className="container-page py-20">یافت نشد.</div>,
 });
 

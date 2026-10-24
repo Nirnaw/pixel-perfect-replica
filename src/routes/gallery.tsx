@@ -10,7 +10,7 @@ export const Route = createFileRoute("/gallery")({
   loader: ({ context }) => context.queryClient.ensureQueryData(galleryQuery),
   head: () => ({ meta: seo("گالری تصاویر و ویدیوها", "تصاویر و ویدیوهای فضای مجموعه، تجهیزات و خدمات مجتمع پزشکی و زیبایی پردیس بابل.") }),
   component: Gallery,
-  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{error.message}</div>,
+  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{String((error as Error)?.message ?? error)}</div>,
   notFoundComponent: () => <div className="container-page py-20">یافت نشد.</div>,
 });
 

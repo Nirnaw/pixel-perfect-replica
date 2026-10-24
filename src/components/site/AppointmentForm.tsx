@@ -34,7 +34,7 @@ function recordSubmit() {
 const field =
   "w-full rounded-xl border border-input bg-background px-4 py-3 text-base text-ink placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/30";
 
-export function AppointmentForm({ services, defaultService }: { services: Service[]; defaultService?: string }) {
+export function AppointmentForm({ services, defaultService }: { services: Service[]; defaultService?: string | undefined }) {
   const initial = services.find((s) => s.slug === defaultService)?.id ?? "";
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");

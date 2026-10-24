@@ -18,7 +18,7 @@ export const Route = createFileRoute("/services/$slug")({
       : [{ title: "خدمت یافت نشد" }, { name: "robots", content: "noindex" }],
   }),
   component: ServiceDetail,
-  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{error.message}</div>,
+  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{String((error as Error)?.message ?? error)}</div>,
   notFoundComponent: () => (
     <div className="container-page py-20 text-center">
       <h1 className="text-2xl">این خدمت پیدا نشد</h1>

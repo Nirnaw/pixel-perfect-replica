@@ -12,7 +12,7 @@ export const Route = createFileRoute("/products")({
   loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
   head: () => ({ meta: seo("محصولات مراقبتی", "محصولات مراقبت از پوست و مو در مجتمع پردیس بابل؛ برای استعلام و سفارش تماس بگیرید یا در اینستاگرام پیام دهید.") }),
   component: Products,
-  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{error.message}</div>,
+  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{String((error as Error)?.message ?? error)}</div>,
   notFoundComponent: () => <div className="container-page py-20">یافت نشد.</div>,
 });
 
