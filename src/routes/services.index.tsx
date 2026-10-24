@@ -9,7 +9,7 @@ export const Route = createFileRoute("/services/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(servicesQuery),
   head: () => ({ meta: seo("خدمات پوست، مو و زیبایی", "فهرست خدمات مجتمع پردیس بابل: لیزر، تزریق بوتاکس و فیلر، ترمیم جای جوش، فیشال، مزوتراپی، کاشت مو و جراحی.") }),
   component: Services,
-  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{error.message}</div>,
+  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{String((error as Error)?.message ?? error)}</div>,
   notFoundComponent: () => <div className="container-page py-20">یافت نشد.</div>,
 });
 

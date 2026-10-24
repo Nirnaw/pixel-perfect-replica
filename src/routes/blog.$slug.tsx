@@ -18,7 +18,7 @@ export const Route = createFileRoute("/blog/$slug")({
       : [{ title: "مقاله یافت نشد" }, { name: "robots", content: "noindex" }],
   }),
   component: Post,
-  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{error.message}</div>,
+  errorComponent: ({ error }) => <div role="alert" className="container-page py-20">{String((error as Error)?.message ?? error)}</div>,
   notFoundComponent: () => (
     <div className="container-page py-20 text-center">
       <h1 className="text-2xl">این مقاله پیدا نشد</h1>
