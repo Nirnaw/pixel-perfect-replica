@@ -14,7 +14,7 @@ function rateLimited(): string | null {
     const times: number[] = JSON.parse(localStorage.getItem(RL_KEY) || "[]").filter(
       (t: number) => now - t < 60 * 60_000,
     );
-    if (times.length && now - times[times.length - 1] < 60_000)
+    if (times.length && now - (times[times.length - 1] ?? 0) < 60_000)
       return "لطفاً یک دقیقه دیگر دوباره تلاش کنید.";
     if (times.length >= 3) return "تعداد درخواست‌های شما زیاد است. لطفاً بعداً تلاش کنید یا تماس بگیرید.";
   } catch {
@@ -42,14 +42,14 @@ export function AppointmentForm({ services, defaultService }: { services: Servic
   const [department, setDepartment] = useState("");
   const [notes, setNotes] = useState("");
   const [website, setWebsite] = useState(""); // honeypot
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<"name" | "mobile" | "notes", string>>>({});
   const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
   const [formError, setFormError] = useState("");
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setFormError("");
-    const errs: Record<string, string> = {};
+    const errs: Partial<Record<"name" | "mobile" | "notes", string>> = {};
     if (name.trim().length < 2) errs.name = "لطفاً نام و نام خانوادگی را وارد کنید.";
     if (!mobile.trim()) errs.mobile = "لطفاً شماره موبایل را وارد کنید.";
     else if (!isValidIranMobile(mobile)) errs.mobile = "شماره موبایل باید به شکل ۰۹xxxxxxxxx و ۱۱ رقم باشد.";
