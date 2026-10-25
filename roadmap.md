@@ -1,0 +1,13 @@
+# Roadmap
+- [x] Public Persian RTL site (pages, seed content, SEO, sitemap)
+- [ ] Admin auth: /admin/login, one-time /admin/setup (server fn), logout, forgot/reset password
+- [ ] Admin guard (client + server), noindex, robots disallow, footer link
+- [ ] Dashboard + راهنما help
+- [ ] Appointment requests manager (status, admin_note, search, delete) + migration
+- [ ] CRUD: services, doctors, posts, products, gallery (reorder, publish toggle)
+- [ ] Site settings editor (+ hero/about image keys)
+- [ ] ImageUploadField (compress, upload to media bucket, URL paste)
+- [ ] Public image fallbacks; doctor initials
+- [ ] Gallery before/after kind
+- [ ] Appointment rate-limit trigger
+- [ ] Tests (phone, admin guard)

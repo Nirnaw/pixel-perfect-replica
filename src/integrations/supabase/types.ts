@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       appointment_requests: {
         Row: {
+          admin_note: string | null
           created_at: string
           department: string | null
           full_name: string
@@ -26,6 +27,7 @@ export type Database = {
           status: string
         }
         Insert: {
+          admin_note?: string | null
           created_at?: string
           department?: string | null
           full_name: string
@@ -36,6 +38,7 @@ export type Database = {
           status?: string
         }
         Update: {
+          admin_note?: string | null
           created_at?: string
           department?: string | null
           full_name?: string
@@ -135,7 +138,9 @@ export type Database = {
       }
       gallery_items: {
         Row: {
+          after_url: string | null
           alt: string
+          before_url: string | null
           category: string
           created_at: string
           id: string
@@ -147,7 +152,9 @@ export type Database = {
           title: string
         }
         Insert: {
+          after_url?: string | null
           alt?: string
+          before_url?: string | null
           category?: string
           created_at?: string
           id?: string
@@ -159,7 +166,9 @@ export type Database = {
           title?: string
         }
         Update: {
+          after_url?: string | null
           alt?: string
+          before_url?: string | null
           category?: string
           created_at?: string
           id?: string

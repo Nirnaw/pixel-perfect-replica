@@ -11,10 +11,23 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminDoctorsRouteImport } from './routes/admin.doctors'
+import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
+import { Route as AdminHelpRouteImport } from './routes/admin.help'
+import { Route as AdminPostsRouteImport } from './routes/admin.posts'
+import { Route as AdminProductsRouteImport } from './routes/admin.products'
+import { Route as AdminRequestsRouteImport } from './routes/admin.requests'
+import { Route as AdminServicesRouteImport } from './routes/admin.services'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminLoginRouteImport } from './routes/admin_.login'
+import { Route as AdminResetPasswordRouteImport } from './routes/admin_.reset-password'
+import { Route as AdminSetupRouteImport } from './routes/admin_.setup'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
@@ -28,6 +41,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -48,6 +66,66 @@ const ProductsRoute = ProductsRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDoctorsRoute = AdminDoctorsRouteImport.update({
+  id: '/doctors',
+  path: '/doctors',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminGalleryRoute = AdminGalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminHelpRoute = AdminHelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPostsRoute = AdminPostsRouteImport.update({
+  id: '/posts',
+  path: '/posts',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProductsRoute = AdminProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminRequestsRoute = AdminRequestsRouteImport.update({
+  id: '/requests',
+  path: '/requests',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminServicesRoute = AdminServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin_/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminResetPasswordRoute = AdminResetPasswordRouteImport.update({
+  id: '/admin_/reset-password',
+  path: '/admin/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSetupRoute = AdminSetupRouteImport.update({
+  id: '/admin_/setup',
+  path: '/admin/setup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
@@ -74,12 +152,25 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/doctors': typeof AdminDoctorsRoute
+  '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/help': typeof AdminHelpRoute
+  '/admin/posts': typeof AdminPostsRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/requests': typeof AdminRequestsRoute
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/reset-password': typeof AdminResetPasswordRoute
+  '/admin/setup': typeof AdminSetupRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
@@ -90,8 +181,20 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/doctors': typeof AdminDoctorsRoute
+  '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/help': typeof AdminHelpRoute
+  '/admin/posts': typeof AdminPostsRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/requests': typeof AdminRequestsRoute
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/reset-password': typeof AdminResetPasswordRoute
+  '/admin/setup': typeof AdminSetupRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/admin': typeof AdminIndexRoute
   '/blog': typeof BlogIndexRoute
   '/services': typeof ServicesIndexRoute
 }
@@ -99,12 +202,25 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/doctors': typeof AdminDoctorsRoute
+  '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/help': typeof AdminHelpRoute
+  '/admin/posts': typeof AdminPostsRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/requests': typeof AdminRequestsRoute
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin_/login': typeof AdminLoginRoute
+  '/admin_/reset-password': typeof AdminResetPasswordRoute
+  '/admin_/setup': typeof AdminSetupRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
@@ -113,12 +229,25 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/contact'
     | '/gallery'
     | '/products'
     | '/sitemap.xml'
+    | '/admin/doctors'
+    | '/admin/gallery'
+    | '/admin/help'
+    | '/admin/posts'
+    | '/admin/products'
+    | '/admin/requests'
+    | '/admin/services'
+    | '/admin/settings'
+    | '/admin/login'
+    | '/admin/reset-password'
+    | '/admin/setup'
     | '/blog/$slug'
     | '/services/$slug'
+    | '/admin/'
     | '/blog/'
     | '/services/'
   fileRoutesByTo: FileRoutesByTo
@@ -129,20 +258,45 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/products'
     | '/sitemap.xml'
+    | '/admin/doctors'
+    | '/admin/gallery'
+    | '/admin/help'
+    | '/admin/posts'
+    | '/admin/products'
+    | '/admin/requests'
+    | '/admin/services'
+    | '/admin/settings'
+    | '/admin/login'
+    | '/admin/reset-password'
+    | '/admin/setup'
     | '/blog/$slug'
     | '/services/$slug'
+    | '/admin'
     | '/blog'
     | '/services'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/contact'
     | '/gallery'
     | '/products'
     | '/sitemap.xml'
+    | '/admin/doctors'
+    | '/admin/gallery'
+    | '/admin/help'
+    | '/admin/posts'
+    | '/admin/products'
+    | '/admin/requests'
+    | '/admin/services'
+    | '/admin/settings'
+    | '/admin_/login'
+    | '/admin_/reset-password'
+    | '/admin_/setup'
     | '/blog/$slug'
     | '/services/$slug'
+    | '/admin/'
     | '/blog/'
     | '/services/'
   fileRoutesById: FileRoutesById
@@ -150,10 +304,14 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
   ProductsRoute: typeof ProductsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminResetPasswordRoute: typeof AdminResetPasswordRoute
+  AdminSetupRoute: typeof AdminSetupRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -174,6 +332,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -202,6 +367,90 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/doctors': {
+      id: '/admin/doctors'
+      path: '/doctors'
+      fullPath: '/admin/doctors'
+      preLoaderRoute: typeof AdminDoctorsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/gallery': {
+      id: '/admin/gallery'
+      path: '/gallery'
+      fullPath: '/admin/gallery'
+      preLoaderRoute: typeof AdminGalleryRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/help': {
+      id: '/admin/help'
+      path: '/help'
+      fullPath: '/admin/help'
+      preLoaderRoute: typeof AdminHelpRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/posts': {
+      id: '/admin/posts'
+      path: '/posts'
+      fullPath: '/admin/posts'
+      preLoaderRoute: typeof AdminPostsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/products': {
+      id: '/admin/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminProductsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/requests': {
+      id: '/admin/requests'
+      path: '/requests'
+      fullPath: '/admin/requests'
+      preLoaderRoute: typeof AdminRequestsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/services': {
+      id: '/admin/services'
+      path: '/services'
+      fullPath: '/admin/services'
+      preLoaderRoute: typeof AdminServicesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin_/login': {
+      id: '/admin_/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/reset-password': {
+      id: '/admin_/reset-password'
+      path: '/admin/reset-password'
+      fullPath: '/admin/reset-password'
+      preLoaderRoute: typeof AdminResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/setup': {
+      id: '/admin_/setup'
+      path: '/admin/setup'
+      fullPath: '/admin/setup'
+      preLoaderRoute: typeof AdminSetupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -235,13 +484,43 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminDoctorsRoute: typeof AdminDoctorsRoute
+  AdminGalleryRoute: typeof AdminGalleryRoute
+  AdminHelpRoute: typeof AdminHelpRoute
+  AdminPostsRoute: typeof AdminPostsRoute
+  AdminProductsRoute: typeof AdminProductsRoute
+  AdminRequestsRoute: typeof AdminRequestsRoute
+  AdminServicesRoute: typeof AdminServicesRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminDoctorsRoute: AdminDoctorsRoute,
+  AdminGalleryRoute: AdminGalleryRoute,
+  AdminHelpRoute: AdminHelpRoute,
+  AdminPostsRoute: AdminPostsRoute,
+  AdminProductsRoute: AdminProductsRoute,
+  AdminRequestsRoute: AdminRequestsRoute,
+  AdminServicesRoute: AdminServicesRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
   ProductsRoute: ProductsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminResetPasswordRoute: AdminResetPasswordRoute,
+  AdminSetupRoute: AdminSetupRoute,
   BlogSlugRoute: BlogSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,

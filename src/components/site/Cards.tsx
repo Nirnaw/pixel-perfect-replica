@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { SafeImg } from "@/components/site/SafeImg";
 import { Clock } from "lucide-react";
 import { faDate, faNum, readingTime } from "@/lib/content";
 
@@ -9,7 +10,7 @@ export function ServiceCard({ s }: { s: ServiceLite }) {
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-shadow hover:shadow-lift">
       <Link to="/services/$slug" params={{ slug: s.slug }} className="block overflow-hidden">
         {s.image_url && (
-          <img
+          <SafeImg
             src={s.image_url}
             alt={s.title}
             loading="lazy"
@@ -51,7 +52,7 @@ export function PostCard({ p }: { p: PostLite }) {
     <article className="group overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-shadow hover:shadow-lift">
       <Link to="/blog/$slug" params={{ slug: p.slug }} className="block">
         {p.cover_url && (
-          <img
+          <SafeImg
             src={p.cover_url}
             alt={p.title}
             loading="lazy"

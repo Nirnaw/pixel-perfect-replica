@@ -7,7 +7,9 @@ export function Reveal({ children, className = "" }: { children: ReactNode; clas
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
-      ([e]) => {
+      (entries) => {
+        const e = entries[0];
+        if (!e) return;
         if (e.isIntersecting) {
           setVisible(true);
           io.disconnect();

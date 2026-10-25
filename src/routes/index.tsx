@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Instagram, MapPin, Navigation } from "lucide-react";
-const heroImg = "/images/hero.jpg";
+
 import { galleryQuery, mapDirections, mapEmbed, postsQuery, productsQuery, servicesQuery, settingsQuery } from "@/lib/content";
 import { seo } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
@@ -52,7 +52,7 @@ function Home() {
           </div>
           <div className="relative">
             <div className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-lavender" aria-hidden />
-            <img src={heroImg} alt="فضای آرام و روشن مجتمع پزشکی و زیبایی پردیس" width={1600} height={1008} fetchPriority="high" className="aspect-[4/3] w-full rounded-[2rem] object-cover shadow-lift" />
+            <img src={s.hero.image || "/images/hero.jpg"} alt="فضای آرام و روشن مجتمع پزشکی و زیبایی پردیس" width={1600} height={1008} fetchPriority="high" className="aspect-[4/3] w-full rounded-[2rem] object-cover shadow-lift" />
           </div>
         </div>
       </section>
@@ -62,6 +62,7 @@ function Home() {
         <Reveal className="container-page grid gap-8 md:grid-cols-[1fr_2fr]">
           <h2 className="text-2xl md:text-3xl">{s.about.title}</h2>
           <div>
+            {s.about.image && <img src={s.about.image} alt={s.about.title} loading="lazy" className="mb-4 aspect-[16/9] w-full rounded-2xl object-cover" />}
             <p className="text-lg">{s.about.text}</p>
             <Link to="/about" className="mt-4 inline-block text-primary hover:underline">آشنایی با پزشکان مجموعه</Link>
           </div>
