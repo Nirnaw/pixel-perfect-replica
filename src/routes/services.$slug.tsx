@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { SafeImg } from "@/components/site/SafeImg";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { serviceQuery, servicesQuery } from "@/lib/content";
 import { seo } from "@/lib/seo";
@@ -52,7 +53,7 @@ function ServiceDetail() {
           </Button>
         </div>
         {s.image_url && (
-          <img src={s.image_url} alt={s.title} width={1024} height={768} className="aspect-[4/3] w-full rounded-[2rem] object-cover shadow-lift" />
+          <SafeImg src={s.image_url} alt={s.title} width={1024} height={768} className="aspect-[4/3] w-full rounded-[2rem] object-cover shadow-lift" />
         )}
       </section>
       {others.length > 0 && (

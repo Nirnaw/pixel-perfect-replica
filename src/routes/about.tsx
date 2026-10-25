@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { UserRound } from "lucide-react";
+import { Initials } from "@/components/site/SafeImg";
 import { doctorsQuery, settingsQuery } from "@/lib/content";
 import { seo } from "@/lib/seo";
 import { PageHeader, Reveal } from "@/components/site/Reveal";
@@ -34,9 +34,7 @@ function About() {
                   {d.image_url ? (
                     <img src={d.image_url} alt={d.name} loading="lazy" className="h-24 w-24 shrink-0 rounded-2xl object-cover" />
                   ) : (
-                    <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-lavender" aria-hidden>
-                      <UserRound className="h-10 w-10 text-primary" />
-                    </div>
+                    <Initials name={d.name} className="h-24 w-24 shrink-0 rounded-2xl" />
                   )}
                   <div>
                     <h3 className="text-xl">{d.name}</h3>

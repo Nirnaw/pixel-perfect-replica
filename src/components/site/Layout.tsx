@@ -124,6 +124,7 @@ export function SiteFooter() {
         <div className="container-page py-5 text-center text-xs text-muted-foreground">
           <p>{s.disclaimer?.text}</p>
           <p className="mt-1">© {new Date().getFullYear().toLocaleString("fa-IR", { useGrouping: false })} {s.clinic?.name}</p>
+          <Link to="/admin/login" className="mt-2 inline-block opacity-50 hover:opacity-100">ورود مدیر</Link>
         </div>
       </div>
     </footer>

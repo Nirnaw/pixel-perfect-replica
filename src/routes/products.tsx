@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SafeImg } from "@/components/site/SafeImg";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Instagram, Package, Phone } from "lucide-react";
@@ -57,7 +58,7 @@ function Products() {
               {data.map((p) => (
                 <Reveal key={p.id}>
                   <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-                    {p.image_url && <img src={p.image_url} alt={p.name} loading="lazy" className="aspect-square w-full object-cover" />}
+                    {p.image_url && <SafeImg src={p.image_url} alt={p.name} loading="lazy" className="aspect-square w-full object-cover" />}
                     <div className="flex flex-1 flex-col p-5">
                       <h3 className="text-lg">{p.name}</h3>
                       <p className="mt-1 flex-1 text-sm text-muted-foreground">{p.description}</p>
