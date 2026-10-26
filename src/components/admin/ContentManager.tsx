@@ -20,7 +20,8 @@ export type Field = {
   showIf?: (row: Row) => boolean;
   ltr?: boolean;
 };
-type Row = Record<string, any> & { id?: string; published?: boolean; before_url?: string | null };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Row = any;
 type Table = "services" | "doctors" | "blog_posts" | "products" | "gallery_items";
 
 export const inputCls =
