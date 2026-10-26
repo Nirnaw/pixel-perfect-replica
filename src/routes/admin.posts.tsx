@@ -17,7 +17,14 @@ export const Route = createFileRoute("/admin/posts")({
       }}
       fields={[
         { name: "title", label: "عنوان مقاله", type: "text", required: true, max: 150 },
-        { name: "slug", label: "نامک (آدرس صفحه)", type: "slug", required: true, slugFrom: "title", max: 80 },
+        {
+          name: "slug",
+          label: "نامک (آدرس صفحه)",
+          type: "slug",
+          required: true,
+          slugFrom: "title",
+          max: 80,
+        },
         { name: "excerpt", label: "خلاصه", type: "textarea", max: 400 },
         { name: "cover_url", label: "تصویر کاور", type: "image" },
         { name: "content", label: "متن مقاله", type: "markdown", required: true },

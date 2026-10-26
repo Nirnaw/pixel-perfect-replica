@@ -1,6 +1,10 @@
 export const SITE_NAME = "مجتمع پزشکی و زیبایی پردیس";
 
-export function seo(title: string, description: string, opts: { type?: string; image?: string | undefined } = {}) {
+export function seo(
+  title: string,
+  description: string,
+  opts: { type?: string; image?: string | undefined } = {},
+) {
   const full = title.includes("پردیس") ? title : `${title} | ${SITE_NAME}`;
   const meta: Array<Record<string, string>> = [
     { title: full },
@@ -15,7 +19,10 @@ export function seo(title: string, description: string, opts: { type?: string; i
     { name: "twitter:description", content: description },
   ];
   if (opts.image && /^https:\/\//.test(opts.image)) {
-    meta.push({ property: "og:image", content: opts.image }, { name: "twitter:image", content: opts.image });
+    meta.push(
+      { property: "og:image", content: opts.image },
+      { name: "twitter:image", content: opts.image },
+    );
   }
   return meta;
 }

@@ -11,7 +11,13 @@ export type SiteSettings = {
     instagram_handle: string;
     phones: Phone[];
   };
-  hero: { title: string; subtitle: string; primary_cta: string; secondary_cta: string; image?: string };
+  hero: {
+    title: string;
+    subtitle: string;
+    primary_cta: string;
+    secondary_cta: string;
+    image?: string;
+  };
   about: { title: string; text: string; image?: string };
   disclaimer: { text: string };
   theme?: Record<string, string>;
