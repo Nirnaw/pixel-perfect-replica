@@ -20,7 +20,7 @@ function Setup() {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [busy, setBusy] = useState(false);
-  async function submit(e: FormEvent) {
+  async function submit(e: FormEvent): Promise<unknown> {
     e.preventDefault();
     if (!/^\S+@\S+\.\S+$/.test(email)) return toast.error("ایمیل معتبر وارد کنید.");
     if (pw.length < 8) return toast.error("رمز عبور باید حداقل ۸ کاراکتر باشد.");

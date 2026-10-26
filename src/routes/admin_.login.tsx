@@ -20,7 +20,7 @@ function Login() {
   const [mode, setMode] = useState<"login" | "forgot">("login");
   const [busy, setBusy] = useState(false);
 
-  async function submit(e: FormEvent) {
+  async function submit(e: FormEvent): Promise<unknown> {
     e.preventDefault();
     if (!/^\S+@\S+\.\S+$/.test(email)) { toast.error("ایمیل معتبر وارد کنید."); return; }
     setBusy(true);
