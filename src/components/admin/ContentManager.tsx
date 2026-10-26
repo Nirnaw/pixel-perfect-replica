@@ -157,7 +157,7 @@ function Editor({
   const [row, setRow] = useState<Row>(initial);
   const [saving, setSaving] = useState(false);
   const [slugTouched, setSlugTouched] = useState(!!initial.id);
-  const set = (k: string, v: unknown) => setRow((r) => ({ ...r, [k]: v }));
+  const set = (k: string, v: unknown) => setRow((r: Row) => ({ ...r, [k]: v }));
 
   const slugField = fields.find((f) => f.type === "slug");
   const slugSource = slugField?.slugFrom ? row[slugField.slugFrom] : undefined;

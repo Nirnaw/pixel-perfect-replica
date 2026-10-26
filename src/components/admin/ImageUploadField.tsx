@@ -82,7 +82,7 @@ export function ImageUploadField({
               variant="outline"
               size="sm"
               onClick={() => {
-                if (!/^(https?:\/\/|\/)/.test(url.trim())) return toast.error("نشانی معتبر وارد کنید.");
+                if (!/^(https?:\/\/|\/)/.test(url.trim())) { toast.error("نشانی معتبر وارد کنید."); return; }
                 onChange(url.trim());
                 setUrl("");
                 toast.success("نشانی ثبت شد.");

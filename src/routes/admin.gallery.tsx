@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ContentManager } from "@/components/admin/ContentManager";
+import type { Row } from "@/components/admin/ContentManager";
 
-const isImg = (r: Record<string, unknown>) => (r.media_type ?? "image") === "image";
-const isVid = (r: Record<string, unknown>) => r.media_type === "video";
-const isBA = (r: Record<string, unknown>) => r.media_type === "before_after";
+const isImg = (r: Row) => (r.media_type ?? "image") === "image";
+const isVid = (r: Row) => r.media_type === "video";
+const isBA = (r: Row) => r.media_type === "before_after";
 
 export const Route = createFileRoute("/admin/gallery")({
   component: () => (

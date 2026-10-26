@@ -22,7 +22,7 @@ function Login() {
 
   async function submit(e: FormEvent) {
     e.preventDefault();
-    if (!/^\S+@\S+\.\S+$/.test(email)) return toast.error("ایمیل معتبر وارد کنید.");
+    if (!/^\S+@\S+\.\S+$/.test(email)) { toast.error("ایمیل معتبر وارد کنید."); return; }
     setBusy(true);
     if (mode === "forgot") {
       const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/admin/reset-password` });
@@ -30,10 +30,10 @@ function Login() {
       return error ? toast.error("ارسال ایمیل انجام نشد.") : toast.success("اگر این ایمیل ثبت شده باشد، لینک بازیابی برایتان ارسال شد.");
     }
     const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) { setBusy(false); return toast.error("ایمیل یا رمز عبور نادرست است."); }
+    if (error) { setBusy(false); { toast.error("ایمیل یا رمز عبور نادرست است."); return; } }
     const { isAdmin } = await checkAdmin();
     setBusy(false);
-    if (!isAdmin) { await supabase.auth.signOut(); return toast.error("این حساب دسترسی مدیریت ندارد."); }
+    if (!isAdmin) { await supabase.auth.signOut(); { toast.error("این حساب دسترسی مدیریت ندارد."); return; } }
     navigate({ to: "/admin" });
   }
 

@@ -37,14 +37,14 @@ function Requests() {
 
   async function update(id: string, patch: { status?: string; admin_note?: string | null }) {
     const { error } = await supabase.from("appointment_requests").update(patch).eq("id", id);
-    if (error) return toast.error("ذخیره انجام نشد.");
+    if (error) { toast.error("ذخیره انجام نشد."); return; }
     toast.success("ذخیره شد.");
     refresh();
   }
   async function remove(id: string, name: string) {
     if (!window.confirm(`درخواست «${name}» حذف شود؟`)) return;
     const { error } = await supabase.from("appointment_requests").delete().eq("id", id);
-    if (error) return toast.error("حذف انجام نشد.");
+    if (error) { toast.error("حذف انجام نشد."); return; }
     toast.success("حذف شد.");
     refresh();
   }

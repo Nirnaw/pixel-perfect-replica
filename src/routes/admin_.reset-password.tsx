@@ -16,9 +16,9 @@ function Reset() {
   const [pw, setPw] = useState("");
   async function submit(e: FormEvent) {
     e.preventDefault();
-    if (pw.length < 8) return toast.error("رمز عبور باید حداقل ۸ کاراکتر باشد.");
+    if (pw.length < 8) { toast.error("رمز عبور باید حداقل ۸ کاراکتر باشد."); return; }
     const { error } = await supabase.auth.updateUser({ password: pw });
-    if (error) return toast.error("تغییر رمز انجام نشد. لینک را دوباره درخواست کنید.");
+    if (error) { toast.error("تغییر رمز انجام نشد. لینک را دوباره درخواست کنید."); return; }
     toast.success("رمز عبور تغییر کرد.");
     navigate({ to: "/admin" });
   }

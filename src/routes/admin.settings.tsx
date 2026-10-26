@@ -33,14 +33,14 @@ function Settings() {
   const up = <K extends keyof SiteSettings>(k: K, patch: Partial<SiteSettings[K]>) => setS((p) => ({ ...p, [k]: { ...p[k], ...patch } }));
 
   async function save() {
-    if (!s.clinic.name.trim()) return toast.error("نام مجموعه را وارد کنید.");
-    if (s.clinic.phones.some((p) => !p.label.trim() || !p.number.trim())) return toast.error("برای هر شماره، عنوان و شماره را وارد کنید.");
-    if (s.clinic.instagram && !/^https:\/\//.test(s.clinic.instagram)) return toast.error("نشانی اینستاگرام باید با https:// شروع شود.");
+    if (!s.clinic.name.trim()) { toast.error("نام مجموعه را وارد کنید."); return; }
+    if (s.clinic.phones.some((p) => !p.label.trim() || !p.number.trim())) { toast.error("برای هر شماره، عنوان و شماره را وارد کنید."); return; }
+    if (s.clinic.instagram && !/^https:\/\//.test(s.clinic.instagram)) { toast.error("نشانی اینستاگرام باید با https:// شروع شود."); return; }
     setBusy(true);
     const keys = ["clinic", "hero", "about", "disclaimer"] as const;
     for (const k of keys) {
       const { error } = await supabase.from("site_settings").upsert({ key: k, value: s[k] as never }, { onConflict: "key" });
-      if (error) { setBusy(false); return toast.error("ذخیره تنظیمات انجام نشد."); }
+      if (error) { setBusy(false); { toast.error("ذخیره تنظیمات انجام نشد."); return; } }
     }
     setBusy(false);
     toast.success("تنظیمات ذخیره شد.");
