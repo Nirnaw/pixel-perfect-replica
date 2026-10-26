@@ -20,7 +20,7 @@ export type Field = {
   showIf?: (row: Row) => boolean;
   ltr?: boolean;
 };
-type Row = Record<string, any>;
+type Row = Record<string, any> & { id?: string; published?: boolean; before_url?: string | null };
 type Table = "services" | "doctors" | "blog_posts" | "products" | "gallery_items";
 
 export const inputCls =
@@ -70,7 +70,7 @@ export function ContentManager({
     list[i + dir]!.sort_order = i + 1;
     for (const r of [list[i]!, list[i + dir]!]) {
       const { error } = await supabase.from(table).update({ sort_order: r.sort_order }).eq("id", r.id);
-      if (error) return toast.error("تغییر ترتیب انجام نشد.");
+      if (error) { toast.error("تغییر ترتیب انجام نشد."); return; }
     }
     toast.success("ترتیب به‌روز شد.");
     refresh();
@@ -78,7 +78,7 @@ export function ContentManager({
 
   async function togglePublish(r: Row) {
     const { error } = await supabase.from(table).update({ published: !r.published }).eq("id", r.id);
-    if (error) return toast.error("تغییر وضعیت انجام نشد.");
+    if (error) { toast.error("تغییر وضعیت انجام نشد."); return; }
     toast.success(r.published ? "به پیش‌نویس منتقل شد." : "منتشر شد.");
     refresh();
   }
@@ -86,7 +86,7 @@ export function ContentManager({
   async function remove(r: Row) {
     if (!window.confirm(`«${r[titleField] || "این مورد"}» حذف شود؟ این کار قابل بازگشت نیست.`)) return;
     const { error } = await supabase.from(table).delete().eq("id", r.id);
-    if (error) return toast.error("حذف انجام نشد.");
+    if (error) { toast.error("حذف انجام نشد."); return; }
     toast.success("حذف شد.");
     refresh();
   }
@@ -169,10 +169,10 @@ function Editor({
       if (f.showIf && !f.showIf(row)) continue;
       const v = row[f.name];
       if (f.required && (v === undefined || v === null || String(v).trim() === "")) {
-        return toast.error(`لطفاً «${f.label}» را وارد کنید.`);
+        { toast.error(`لطفاً «${f.label}» را وارد کنید.`); return; }
       }
       if (f.max && typeof v === "string" && v.length > f.max) {
-        return toast.error(`«${f.label}» حداکثر ${f.max.toLocaleString("fa-IR")} کاراکتر باشد.`);
+        { toast.error(`«${f.label}» حداکثر ${f.max.toLocaleString("fa-IR")} کاراکتر باشد.`); return; }
       }
     }
     setSaving(true);
