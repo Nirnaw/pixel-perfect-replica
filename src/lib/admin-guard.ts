@@ -7,7 +7,11 @@ export function adminRedirectFor(userId: string | null, isAdmin: boolean): "/adm
   return null;
 }
 
-export async function checkAdmin(): Promise<{ userId: string | null; isAdmin: boolean; email: string | null }> {
+export async function checkAdmin(): Promise<{
+  userId: string | null;
+  isAdmin: boolean;
+  email: string | null;
+}> {
   const { data } = await supabase.auth.getUser();
   const user = data.user;
   if (!user) return { userId: null, isAdmin: false, email: null };

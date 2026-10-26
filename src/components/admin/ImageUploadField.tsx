@@ -26,7 +26,11 @@ export function ImageUploadField({
   async function onFile(f: File | undefined) {
     if (!f) return;
     if (!types.includes(f.type)) {
-      toast.error(kind === "image" ? "فقط تصویر JPG، PNG یا WEBP قابل قبول است." : "فقط ویدیوی MP4 یا WEBM قابل قبول است.");
+      toast.error(
+        kind === "image"
+          ? "فقط تصویر JPG، PNG یا WEBP قابل قبول است."
+          : "فقط ویدیوی MP4 یا WEBM قابل قبول است.",
+      );
       return;
     }
     if (f.size > maxMb * 1024 * 1024) {
@@ -58,13 +62,32 @@ export function ImageUploadField({
         </div>
         <div className="flex flex-1 flex-col gap-2">
           <div className="flex flex-wrap gap-2">
-            <input ref={input} id={id} type="file" accept={types.join(",")} className="sr-only" onChange={(e) => onFile(e.target.files?.[0])} />
-            <Button type="button" variant="hero" size="sm" disabled={busy} onClick={() => input.current?.click()}>
-              <Upload />{busy ? "در حال آپلود…" : kind === "image" ? "آپلود / تعویض تصویر" : "آپلود / تعویض ویدیو"}
+            <input
+              ref={input}
+              id={id}
+              type="file"
+              accept={types.join(",")}
+              className="sr-only"
+              onChange={(e) => onFile(e.target.files?.[0])}
+            />
+            <Button
+              type="button"
+              variant="hero"
+              size="sm"
+              disabled={busy}
+              onClick={() => input.current?.click()}
+            >
+              <Upload />
+              {busy
+                ? "در حال آپلود…"
+                : kind === "image"
+                  ? "آپلود / تعویض تصویر"
+                  : "آپلود / تعویض ویدیو"}
             </Button>
             {value && (
               <Button type="button" variant="soft" size="sm" onClick={() => onChange(null)}>
-                <Trash2 />حذف
+                <Trash2 />
+                حذف
               </Button>
             )}
           </div>
@@ -82,17 +105,23 @@ export function ImageUploadField({
               variant="outline"
               size="sm"
               onClick={() => {
-                if (!/^(https?:\/\/|\/)/.test(url.trim())) return toast.error("نشانی معتبر وارد کنید.");
+                if (!/^(https?:\/\/|\/)/.test(url.trim())) {
+                  toast.error("نشانی معتبر وارد کنید.");
+                  return;
+                }
                 onChange(url.trim());
                 setUrl("");
                 toast.success("نشانی ثبت شد.");
               }}
             >
-              <Link2 />استفاده از نشانی
+              <Link2 />
+              استفاده از نشانی
             </Button>
           </div>
           <p className="text-xs text-muted-foreground">
-            {kind === "image" ? "حداکثر ۵ مگابایت؛ تصویر به‌طور خودکار فشرده می‌شود." : "حداکثر ۵۰ مگابایت، یا نشانی ویدیو (یوتیوب/آپارات/مستقیم)."}
+            {kind === "image"
+              ? "حداکثر ۵ مگابایت؛ تصویر به‌طور خودکار فشرده می‌شود."
+              : "حداکثر ۵۰ مگابایت، یا نشانی ویدیو (یوتیوب/آپارات/مستقیم)."}
           </p>
         </div>
       </div>

@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ContentManager } from "@/components/admin/ContentManager";
+import type { Row } from "@/components/admin/ContentManager";
 
-const isImg = (r: Record<string, unknown>) => (r.media_type ?? "image") === "image";
-const isVid = (r: Record<string, unknown>) => r.media_type === "video";
-const isBA = (r: Record<string, unknown>) => r.media_type === "before_after";
+const isImg = (r: Row) => (r.media_type ?? "image") === "image";
+const isVid = (r: Row) => r.media_type === "video";
+const isBA = (r: Row) => r.media_type === "before_after";
 
 export const Route = createFileRoute("/admin/gallery")({
   component: () => (
@@ -20,12 +21,36 @@ export const Route = createFileRoute("/admin/gallery")({
         return out;
       }}
       fields={[
-        { name: "media_type", label: "نوع", type: "select", options: [{ value: "image", label: "تصویر" }, { value: "video", label: "ویدیو" }, { value: "before_after", label: "قبل و بعد" }] },
+        {
+          name: "media_type",
+          label: "نوع",
+          type: "select",
+          options: [
+            { value: "image", label: "تصویر" },
+            { value: "video", label: "ویدیو" },
+            { value: "before_after", label: "قبل و بعد" },
+          ],
+        },
         { name: "title", label: "عنوان / توضیح", type: "text", max: 150 },
-        { name: "category", label: "دسته", type: "datalist", required: true, max: 60, options: ["محیط مجموعه", "تجهیزات", "مراقبت پوست", "قبل و بعد", "پزشکان"].map((v) => ({ value: v, label: v })) },
+        {
+          name: "category",
+          label: "دسته",
+          type: "datalist",
+          required: true,
+          max: 60,
+          options: ["محیط مجموعه", "تجهیزات", "مراقبت پوست", "قبل و بعد", "پزشکان"].map((v) => ({
+            value: v,
+            label: v,
+          })),
+        },
         { name: "media_url", label: "تصویر", type: "image", required: true, showIf: isImg },
         { name: "media_url", label: "ویدیو", type: "video", required: true, showIf: isVid },
-        { name: "thumbnail_url", label: "تصویر پیش‌نمایش ویدیو (اختیاری)", type: "image", showIf: isVid },
+        {
+          name: "thumbnail_url",
+          label: "تصویر پیش‌نمایش ویدیو (اختیاری)",
+          type: "image",
+          showIf: isVid,
+        },
         { name: "before_url", label: "تصویر «قبل»", type: "image", required: true, showIf: isBA },
         { name: "after_url", label: "تصویر «بعد»", type: "image", required: true, showIf: isBA },
         { name: "alt", label: "متن جایگزین تصویر (برای دسترسی‌پذیری)", type: "text", max: 200 },

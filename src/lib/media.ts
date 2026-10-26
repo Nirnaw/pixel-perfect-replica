@@ -14,8 +14,7 @@ export async function compressImage(file: File, max = 1600): Promise<Blob> {
   canvas.width = w;
   canvas.height = h;
   canvas.getContext("2d")!.drawImage(bmp, 0, 0, w, h);
-  const toBlob = (type: string) =>
-    new Promise<Blob | null>((r) => canvas.toBlob(r, type, 0.85));
+  const toBlob = (type: string) => new Promise<Blob | null>((r) => canvas.toBlob(r, type, 0.85));
   return (await toBlob("image/webp")) ?? (await toBlob("image/jpeg"))!;
 }
 

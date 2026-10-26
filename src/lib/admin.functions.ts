@@ -32,7 +32,11 @@ export const createFirstAdmin = createServerFn({ method: "POST" })
       password: data.password,
       email_confirm: true,
     });
-    if (error || !created.user) return { ok: false as const, error: "ساخت حساب ممکن نشد. شاید این ایمیل قبلاً ثبت شده باشد." };
+    if (error || !created.user)
+      return {
+        ok: false as const,
+        error: "ساخت حساب ممکن نشد. شاید این ایمیل قبلاً ثبت شده باشد.",
+      };
     // Re-check right before granting to narrow the race window.
     if (await adminExists()) {
       await supabaseAdmin.auth.admin.deleteUser(created.user.id);

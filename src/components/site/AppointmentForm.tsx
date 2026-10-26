@@ -75,7 +75,11 @@ export function AppointmentForm({ services, defaultService }: { services: Servic
     });
     if (error) {
       setStatus("idle");
-      setFormError("ثبت درخواست با مشکل روبه‌رو شد. لطفاً دوباره تلاش کنید یا تماس بگیرید.");
+      setFormError(
+        /RATE_LIMIT|DUPLICATE/.test(error.message)
+          ? "درخواست‌های شما بیش از حد مجاز است؛ لطفاً کمی بعد دوباره تلاش کنید یا با شماره‌های مجموعه تماس بگیرید."
+          : "ثبت درخواست با مشکل روبه‌رو شد. لطفاً دوباره تلاش کنید یا تماس بگیرید.",
+      );
       return;
     }
     recordSubmit();
