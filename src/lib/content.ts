@@ -87,7 +87,7 @@ export const galleryQuery = queryOptions({
   queryFn: async () => {
     const { data, error } = await supabase
       .from("gallery_items")
-      .select("id,title,category,media_type,media_url,thumbnail_url,alt")
+      .select("id,title,category,media_type,media_url,thumbnail_url,alt,before_url,after_url")
       .eq("published", true)
       .order("sort_order");
     if (error) throw new Error(error.message);
