@@ -8,6 +8,7 @@ import { slugify } from "@/lib/media";
 import { Button } from "@/components/ui/button";
 import { SafeImg } from "@/components/site/SafeImg";
 import { ImageUploadField } from "./ImageUploadField";
+import { contentSaveError, fieldValue } from "@/lib/content-fields";
 
 export type Field = {
   name: string;
@@ -24,6 +25,7 @@ export type Field = {
     | "date"
     | "datalist";
   required?: boolean;
+  nullable?: boolean;
   max?: number;
   options?: { value: string; label: string }[];
   slugFrom?: string;
@@ -46,6 +48,7 @@ export function ContentManager({
   defaults = {},
   publicKeys,
   beforeSave,
+  mediaType,
 }: {
   table: Table;
   title: string;
@@ -55,17 +58,20 @@ export function ContentManager({
   defaults?: Row;
   publicKeys: string[][];
   beforeSave?: (row: Row) => Row;
+  mediaType?: string;
 }) {
   const qc = useQueryClient();
-  const key = ["admin", table];
+  const key = ["admin", table, mediaType ?? "all"];
   const { data: rows = [], isLoading } = useQuery({
     queryKey: key,
     queryFn: async () => {
-      const { data, error } = await supabase
+      let query = supabase
         .from(table)
         .select("*")
         .order("sort_order")
         .order("created_at");
+      if (mediaType) query = query.eq("media_type", mediaType);
+      const { data, error } = await query;
       if (error) throw error;
       return data as Row[];
     },
@@ -82,9 +88,11 @@ export function ContentManager({
       b = rows[i + dir];
     if (!a || !b) return;
     const list = rows.map((r, idx) => ({ id: r.id, sort_order: idx + 1 }));
-    list[i]!.sort_order = i + dir + 1;
-    list[i + dir]!.sort_order = i + 1;
-    for (const r of [list[i]!, list[i + dir]!]) {
+    const first = list[i], second = list[i + dir];
+    if (!first || !second) return;
+    first.sort_order = i + dir + 1;
+    second.sort_order = i + 1;
+    for (const r of [first, second]) {
       const { error } = await supabase
         .from(table)
         .update({ sort_order: r.sort_order })
@@ -259,9 +267,11 @@ function Editor({
     let payload: Row = {};
     for (const f of fields) {
       let v = row[f.name];
-      if (typeof v === "string")
-        v = v.trim() === "" && f.type !== "text" && !f.required ? null : v.trim();
-      payload[f.name] = v ?? (f.type === "bool" ? false : null);
+      v = fieldValue(v, f.type, f.nullable);
+      payload[f.name] = v;
+    }
+    for (const [name, value] of Object.entries(initial)) {
+      if (name !== "id" && name !== "created_at" && name !== "sort_order" && !(name in payload)) payload[name] = value;
     }
     payload.published = !!row.published;
     if (beforeSave) payload = beforeSave(payload);
@@ -274,11 +284,8 @@ function Editor({
     const { error } = await q;
     setSaving(false);
     if (error) {
-      toast.error(
-        error.code === "23505"
-          ? "این نامک (آدرس) قبلاً استفاده شده است."
-          : "ذخیره انجام نشد. مقادیر را بررسی کنید.",
-      );
+      console.error(error);
+      toast.error(contentSaveError(error.code));
       return;
     }
     toast.success("با موفقیت ذخیره شد.");
@@ -365,7 +372,7 @@ export function FieldInput({
             value={value ?? ""}
             onChange={(e) => onChange(e.target.value || null)}
           >
-            {f.options!.map((o) => (
+            {f.options?.map((o) => (
               <option key={o.value} value={o.value}>
                 {o.label}
               </option>
