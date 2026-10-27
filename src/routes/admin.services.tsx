@@ -27,9 +27,9 @@ export const Route = createFileRoute("/admin/services")({
           max: 400,
         },
         { name: "description", label: "توضیح کامل", type: "textarea", max: 5000 },
-        { name: "image_url", label: "تصویر خدمت", type: "image" },
+        { name: "image_url", nullable: true, label: "تصویر خدمت", type: "image" },
         {
-          name: "department",
+          name: "department", nullable: true,
           label: "بخش",
           type: "select",
           options: [
@@ -39,8 +39,8 @@ export const Route = createFileRoute("/admin/services")({
           ],
         },
         { name: "featured", label: "نمایش در صفحه اول (منتخب)", type: "bool" },
-        { name: "seo_title", label: "عنوان برای گوگل (اختیاری)", type: "text", max: 70 },
-        { name: "seo_description", label: "توضیح برای گوگل (اختیاری)", type: "textarea", max: 170 },
+        { name: "seo_title", nullable: true, label: "عنوان برای گوگل (اختیاری)", type: "text", max: 70 },
+        { name: "seo_description", nullable: true, label: "توضیح برای گوگل (اختیاری)", type: "textarea", max: 170 },
       ]}
     />
   ),

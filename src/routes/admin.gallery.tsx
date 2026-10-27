@@ -46,13 +46,13 @@ export const Route = createFileRoute("/admin/gallery")({
         { name: "media_url", label: "تصویر", type: "image", required: true, showIf: isImg },
         { name: "media_url", label: "ویدیو", type: "video", required: true, showIf: isVid },
         {
-          name: "thumbnail_url",
+          name: "thumbnail_url", nullable: true,
           label: "تصویر پیش‌نمایش ویدیو (اختیاری)",
           type: "image",
           showIf: isVid,
         },
-        { name: "before_url", label: "تصویر «قبل»", type: "image", required: true, showIf: isBA },
-        { name: "after_url", label: "تصویر «بعد»", type: "image", required: true, showIf: isBA },
+        { name: "before_url", nullable: true, label: "تصویر «قبل»", type: "image", required: true, showIf: isBA },
+        { name: "after_url", nullable: true, label: "تصویر «بعد»", type: "image", required: true, showIf: isBA },
         { name: "alt", label: "متن جایگزین تصویر (برای دسترسی‌پذیری)", type: "text", max: 200 },
       ]}
     />
