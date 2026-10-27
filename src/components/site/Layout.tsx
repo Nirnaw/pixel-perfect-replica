@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { Instagram, Menu, Phone, X, MapPin } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowUp, Instagram, Menu, Phone, X, MapPin } from "lucide-react";
 import { Logo } from "./Logo";
 import { settingsQuery } from "@/lib/content";
 import { telHref } from "@/lib/phone";
@@ -12,6 +12,7 @@ const NAV = [
   { to: "/services", label: "خدمات" },
   { to: "/about", label: "درباره ما" },
   { to: "/gallery", label: "گالری" },
+  { to: "/before-after", label: "قبل و بعد" },
   { to: "/blog", label: "مقالات" },
   { to: "/products", label: "محصولات" },
   { to: "/contact", label: "تماس" },
@@ -134,8 +135,17 @@ export function SiteFooter() {
 export function FloatingButtons() {
   const { data: s } = useSuspenseQuery(settingsQuery);
   const phone = s.clinic?.phones?.[0];
+  const [showTop, setShowTop] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 400);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
     <div className="fixed bottom-5 left-5 z-40 flex flex-col gap-3">
+      {showTop && <Button variant="soft" size="icon" aria-label="بازگشت به بالای صفحه" title="بازگشت به بالا" className="h-12 w-12 rounded-full shadow-lift"
+        onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" })}><ArrowUp /></Button>}
       {phone && (
         <a
           href={telHref(phone.number)}

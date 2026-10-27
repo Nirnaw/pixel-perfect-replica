@@ -2,11 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Instagram, MapPin, Navigation } from "lucide-react";
 
-import { galleryQuery, mapDirections, mapEmbed, postsQuery, productsQuery, servicesQuery, settingsQuery } from "@/lib/content";
+import { doctorsQuery, galleryQuery, mapDirections, mapEmbed, postsQuery, productsQuery, servicesQuery, settingsQuery } from "@/lib/content";
 import { seo } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
 import { PostCard, ServiceCard } from "@/components/site/Cards";
+import { BeforeAfterEmpty, BeforeAfterPair } from "@/components/site/BeforeAfter";
+import { Initials, SafeImg } from "@/components/site/SafeImg";
 
 export const Route = createFileRoute("/")({
   loader: ({ context: { queryClient } }) =>
@@ -15,6 +17,7 @@ export const Route = createFileRoute("/")({
       queryClient.ensureQueryData(postsQuery),
       queryClient.ensureQueryData(galleryQuery),
       queryClient.ensureQueryData(productsQuery),
+      queryClient.ensureQueryData(doctorsQuery),
     ]),
   head: () => ({
     meta: seo("مجتمع پزشکی و زیبایی پردیس | پوست، مو و زیبایی در بابل", "مجتمع پزشکی و زیبایی پردیس در بابل؛ خدمات تخصصی پوست، مو، لیزر و زیبایی با مدیریت دکتر شاهین غلامی. درخواست نوبت آنلاین."),
@@ -30,6 +33,8 @@ function Home() {
   const { data: posts } = useSuspenseQuery(postsQuery);
   const { data: gallery } = useSuspenseQuery(galleryQuery);
   const { data: products } = useSuspenseQuery(productsQuery);
+  const { data: doctors } = useSuspenseQuery(doctorsQuery);
+  const pairs = gallery.filter((item) => item.media_type === "before_after").slice(0, 3);
   const featured = (services.filter((x) => x.featured).length >= 6 ? services.filter((x) => x.featured) : services).slice(0, 6);
 
   return (
@@ -47,6 +52,9 @@ function Home() {
               </Button>
               <Button asChild variant="soft" size="xl">
                 <Link to="/contact">{s.hero.secondary_cta}</Link>
+              </Button>
+              <Button asChild variant="outline" size="xl">
+                <a href={mapDirections(s.clinic.address)} target="_blank" rel="noopener noreferrer"><Navigation />مسیریابی تا کلینیک</a>
               </Button>
             </div>
           </div>
@@ -72,6 +80,18 @@ function Home() {
       {/* Services */}
       <section className="section-y">
         <div className="container-page">
+          <SectionHeading title="پزشکان مجموعه" />
+          <div className="grid gap-6 md:grid-cols-2">
+            {doctors.map((doctor) => <Link key={doctor.id} to="/about" className="flex min-w-0 items-start gap-4 rounded-lg bg-card p-5 shadow-soft">
+              {doctor.image_url ? <SafeImg src={doctor.image_url} alt={doctor.name} className="h-20 w-20 shrink-0 rounded-lg object-cover" /> : <Initials name={doctor.name} className="h-20 w-20 shrink-0 rounded-lg" />}
+              <div className="min-w-0"><h3 className="text-lg">{doctor.name}</h3><p className="text-sm text-primary">{doctor.role}</p><p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{doctor.bio}</p></div>
+            </Link>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-y">
+        <div className="container-page">
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-4">
               <SectionHeading eyebrow="خدمات" title="خدمات منتخب پردیس" />
@@ -87,6 +107,13 @@ function Home() {
       </section>
 
       {/* Gallery teaser */}
+      <section className="section-y bg-lavender/50">
+        <div className="container-page">
+          <div className="flex flex-wrap items-end justify-between gap-4"><SectionHeading title="قبل و بعد" /><Link to="/before-after" className="mb-10 text-primary hover:underline">مشاهده همه</Link></div>
+          {pairs.length ? <div className="grid gap-6 md:grid-cols-3">{pairs.map((pair) => <BeforeAfterPair key={pair.id} pair={pair} />)}</div> : <BeforeAfterEmpty />}
+        </div>
+      </section>
+
       {gallery.length > 0 && (
         <section className="section-y bg-muted">
           <div className="container-page">
