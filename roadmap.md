@@ -1,4 +1,10 @@
 # Roadmap
+- [ ] Add authenticated admin management with self/last-admin protection
+- [ ] Fix empty text/null handling across admin forms
+- [ ] Public/home/admin before-after views and unpublished examples
+- [ ] Home doctors section and neutral portraits
+- [ ] Public back-to-top and hero directions buttons
+- [ ] Run existing and focused tests; verify preview flows
 - [x] Public Persian RTL site (pages, seed content, SEO, sitemap)
 - [x] Admin auth (end-to-end login/CRUD smoke test pending first real admin account): /admin/login, one-time /admin/setup (server fn), logout, forgot/reset password
 - [x] Admin guard (client + server), noindex, robots disallow, footer link
