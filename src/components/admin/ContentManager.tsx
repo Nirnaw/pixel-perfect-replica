@@ -65,13 +65,14 @@ export function ContentManager({
   const { data: rows = [], isLoading } = useQuery({
     queryKey: key,
     queryFn: async () => {
-      let query = supabase
+      const query = supabase
         .from(table)
         .select("*")
         .order("sort_order")
         .order("created_at");
-      if (mediaType) query = query.eq("media_type", mediaType);
-      const { data, error } = await query;
+      const { data, error } = mediaType && table === "gallery_items"
+        ? await supabase.from("gallery_items").select("*").eq("media_type", mediaType).order("sort_order").order("created_at")
+        : await query;
       if (error) throw error;
       return data as Row[];
     },
