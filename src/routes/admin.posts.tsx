@@ -26,11 +26,11 @@ export const Route = createFileRoute("/admin/posts")({
           max: 80,
         },
         { name: "excerpt", label: "خلاصه", type: "textarea", max: 400 },
-        { name: "cover_url", label: "تصویر کاور", type: "image" },
+        { name: "cover_url", nullable: true, label: "تصویر کاور", type: "image" },
         { name: "content", label: "متن مقاله", type: "markdown", required: true },
         { name: "published_at", label: "تاریخ انتشار", type: "date" },
-        { name: "seo_title", label: "عنوان برای گوگل (اختیاری)", type: "text", max: 70 },
-        { name: "seo_description", label: "توضیح برای گوگل (اختیاری)", type: "textarea", max: 170 },
+        { name: "seo_title", nullable: true, label: "عنوان برای گوگل (اختیاری)", type: "text", max: 70 },
+        { name: "seo_description", nullable: true, label: "توضیح برای گوگل (اختیاری)", type: "textarea", max: 170 },
       ]}
     />
   ),

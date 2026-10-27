@@ -15,6 +15,13 @@
       "when": 1792911930438,
       "tag": "0001_admin_panel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793088713903,
+      "tag": "0002_admin_access_guards",
+      "breakpoints": true
     }
   ]
 }

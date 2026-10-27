@@ -11,6 +11,8 @@ import {
   Menu,
   Package,
   Settings,
+  Shield,
+  Images,
   Stethoscope,
   Users,
   X,
@@ -45,6 +47,8 @@ const NAV = [
   { to: "/admin/posts", label: "مقالات", icon: FileText },
   { to: "/admin/products", label: "محصولات", icon: Package },
   { to: "/admin/gallery", label: "گالری", icon: Image },
+  { to: "/admin/before-after", label: "قبل و بعد", icon: Images },
+  { to: "/admin/admins", label: "مدیران", icon: Shield },
   { to: "/admin/settings", label: "تنظیمات سایت", icon: Settings },
   { to: "/admin/help", label: "راهنما", icon: BookOpen },
 ] as const;

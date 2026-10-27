@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Play, X } from "lucide-react";
 import { galleryQuery, settingsQuery } from "@/lib/content";
 import { seo } from "@/lib/seo";
 import { PageHeader } from "@/components/site/Reveal";
+import { BeforeAfterPair } from "@/components/site/BeforeAfter";
 
 export const Route = createFileRoute("/gallery")({
   loader: async ({ context }) => {
@@ -34,14 +35,6 @@ function Gallery() {
   const pairs = filtered.filter((d) => d.media_type === "before_after" && d.before_url && d.after_url);
   const [idx, setIdx] = useState<number | null>(null);
   const cur = idx !== null ? items[idx] : null;
-  const [ba, setBa] = useState<{ src: string; alt: string } | null>(null);
-  useEffect(() => {
-    if (!ba) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setBa(null);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [ba]);
-
   useEffect(() => {
     if (idx === null) return;
     const onKey = (e: KeyboardEvent) => {
@@ -90,32 +83,13 @@ function Gallery() {
             <section aria-labelledby="ba-title" className="mt-14">
               <h2 id="ba-title" className="mb-6 text-2xl">قبل و بعد</h2>
               <div className="grid gap-6 md:grid-cols-2">
-                {pairs.map((p) => (
-                  <figure key={p.id} className="rounded-2xl border border-border bg-card p-3 shadow-soft">
-                    <div className="grid grid-cols-2 gap-2">
-                      {([["قبل", p.before_url], ["بعد", p.after_url]] as const).map(([lab, src]) => (
-                        <button key={lab} onClick={() => setBa({ src: src!, alt: `${lab} — ${p.alt || p.title}` })} aria-label={`نمایش تصویر ${lab} ${p.title}`} className="relative overflow-hidden rounded-xl">
-                          <img src={src!} alt={`${lab} — ${p.alt || p.title}`} loading="lazy" className="aspect-square w-full object-cover" />
-                          <span className="absolute right-2 top-2 rounded-full bg-background/90 px-3 py-0.5 text-sm text-ink">{lab}</span>
-                        </button>
-                      ))}
-                    </div>
-                    {p.title && <figcaption className="mt-3 text-center text-sm text-muted-foreground">{p.title}</figcaption>}
-                  </figure>
-                ))}
+                {pairs.map((pair) => <BeforeAfterPair key={pair.id} pair={pair} />)}
               </div>
               {settings.disclaimer?.text && <p className="mt-6 rounded-xl bg-lavender/60 p-4 text-sm text-muted-foreground">{settings.disclaimer.text}</p>}
             </section>
           )}
         </div>
       </section>
-
-      {ba && (
-        <div role="dialog" aria-modal="true" aria-label={ba.alt} className="fixed inset-0 z-50 flex items-center justify-center bg-ink/90 p-4" onClick={() => setBa(null)}>
-          <button autoFocus aria-label="بستن" className="absolute right-4 top-4 rounded-full bg-background/90 p-2" onClick={() => setBa(null)}><X className="h-5 w-5" /></button>
-          <img src={ba.src} alt={ba.alt} className="max-h-[85vh] max-w-5xl rounded-2xl object-contain" onClick={(e) => e.stopPropagation()} />
-        </div>
-      )}
 
       {cur && (
         <div role="dialog" aria-modal="true" aria-label={cur.title || "نمایش رسانه"} className="fixed inset-0 z-50 flex items-center justify-center bg-ink/90 p-4" onClick={() => setIdx(null)}>

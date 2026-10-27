@@ -13,7 +13,7 @@ export const Route = createFileRoute("/admin/doctors")({
         { name: "name", label: "نام", type: "text", required: true, max: 100 },
         { name: "role", label: "سمت", type: "text", max: 100 },
         { name: "bio", label: "معرفی کوتاه", type: "textarea", max: 1000 },
-        { name: "image_url", label: "عکس پزشک", type: "image" },
+        { name: "image_url", nullable: true, label: "عکس پزشک", type: "image" },
       ]}
     />
   ),

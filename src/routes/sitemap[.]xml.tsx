@@ -23,7 +23,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           sb.from("blog_posts").select("slug").eq("published", true),
         ]);
         const paths = [
-          "/", "/services", "/about", "/gallery", "/blog", "/products", "/contact",
+          "/", "/services", "/about", "/gallery", "/before-after", "/blog", "/products", "/contact",
           ...(services ?? []).map((s) => `/services/${s.slug}`),
           ...(posts ?? []).map((p) => `/blog/${p.slug}`),
         ];

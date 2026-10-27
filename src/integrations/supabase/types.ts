@@ -319,6 +319,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      remove_admin_access: {
+        Args: { target_user_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "user"
