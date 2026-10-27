@@ -17,6 +17,7 @@ import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAdminsRouteImport } from './routes/admin.admins'
 import { Route as AdminDoctorsRouteImport } from './routes/admin.doctors'
 import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
 import { Route as AdminHelpRouteImport } from './routes/admin.help'
@@ -71,6 +72,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAdminsRoute = AdminAdminsRouteImport.update({
+  id: '/admins',
+  path: '/admins',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminDoctorsRoute = AdminDoctorsRouteImport.update({
@@ -157,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/admins': typeof AdminAdminsRoute
   '/admin/doctors': typeof AdminDoctorsRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/help': typeof AdminHelpRoute
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/admins': typeof AdminAdminsRoute
   '/admin/doctors': typeof AdminDoctorsRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/help': typeof AdminHelpRoute
@@ -207,6 +215,7 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/admins': typeof AdminAdminsRoute
   '/admin/doctors': typeof AdminDoctorsRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/help': typeof AdminHelpRoute
@@ -234,6 +243,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/products'
     | '/sitemap.xml'
+    | '/admin/admins'
     | '/admin/doctors'
     | '/admin/gallery'
     | '/admin/help'
@@ -258,6 +268,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/products'
     | '/sitemap.xml'
+    | '/admin/admins'
     | '/admin/doctors'
     | '/admin/gallery'
     | '/admin/help'
@@ -283,6 +294,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/products'
     | '/sitemap.xml'
+    | '/admin/admins'
     | '/admin/doctors'
     | '/admin/gallery'
     | '/admin/help'
@@ -374,6 +386,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/admins': {
+      id: '/admin/admins'
+      path: '/admins'
+      fullPath: '/admin/admins'
+      preLoaderRoute: typeof AdminAdminsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/doctors': {
@@ -485,6 +504,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminAdminsRoute: typeof AdminAdminsRoute
   AdminDoctorsRoute: typeof AdminDoctorsRoute
   AdminGalleryRoute: typeof AdminGalleryRoute
   AdminHelpRoute: typeof AdminHelpRoute
@@ -497,6 +517,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAdminsRoute: AdminAdminsRoute,
   AdminDoctorsRoute: AdminDoctorsRoute,
   AdminGalleryRoute: AdminGalleryRoute,
   AdminHelpRoute: AdminHelpRoute,
