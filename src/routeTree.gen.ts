@@ -12,12 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as BeforeAfterRouteImport } from './routes/before-after'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAdminsRouteImport } from './routes/admin.admins'
+import { Route as AdminBeforeAfterRouteImport } from './routes/admin.before-after'
 import { Route as AdminDoctorsRouteImport } from './routes/admin.doctors'
 import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
 import { Route as AdminHelpRouteImport } from './routes/admin.help'
@@ -49,6 +51,11 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BeforeAfterRoute = BeforeAfterRouteImport.update({
+  id: '/before-after',
+  path: '/before-after',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -77,6 +84,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const AdminAdminsRoute = AdminAdminsRouteImport.update({
   id: '/admins',
   path: '/admins',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBeforeAfterRoute = AdminBeforeAfterRouteImport.update({
+  id: '/before-after',
+  path: '/before-after',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminDoctorsRoute = AdminDoctorsRouteImport.update({
@@ -159,11 +171,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/before-after': typeof BeforeAfterRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/admins': typeof AdminAdminsRoute
+  '/admin/before-after': typeof AdminBeforeAfterRoute
   '/admin/doctors': typeof AdminDoctorsRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/help': typeof AdminHelpRoute
@@ -184,11 +198,13 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/before-after': typeof BeforeAfterRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/admins': typeof AdminAdminsRoute
+  '/admin/before-after': typeof AdminBeforeAfterRoute
   '/admin/doctors': typeof AdminDoctorsRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/help': typeof AdminHelpRoute
@@ -211,11 +227,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/before-after': typeof BeforeAfterRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/admins': typeof AdminAdminsRoute
+  '/admin/before-after': typeof AdminBeforeAfterRoute
   '/admin/doctors': typeof AdminDoctorsRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/help': typeof AdminHelpRoute
@@ -239,11 +257,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/before-after'
     | '/contact'
     | '/gallery'
     | '/products'
     | '/sitemap.xml'
     | '/admin/admins'
+    | '/admin/before-after'
     | '/admin/doctors'
     | '/admin/gallery'
     | '/admin/help'
@@ -264,11 +284,13 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/before-after'
     | '/contact'
     | '/gallery'
     | '/products'
     | '/sitemap.xml'
     | '/admin/admins'
+    | '/admin/before-after'
     | '/admin/doctors'
     | '/admin/gallery'
     | '/admin/help'
@@ -290,11 +312,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/before-after'
     | '/contact'
     | '/gallery'
     | '/products'
     | '/sitemap.xml'
     | '/admin/admins'
+    | '/admin/before-after'
     | '/admin/doctors'
     | '/admin/gallery'
     | '/admin/help'
@@ -317,6 +341,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
+  BeforeAfterRoute: typeof BeforeAfterRoute
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
   ProductsRoute: typeof ProductsRoute
@@ -351,6 +376,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/before-after': {
+      id: '/before-after'
+      path: '/before-after'
+      fullPath: '/before-after'
+      preLoaderRoute: typeof BeforeAfterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -393,6 +425,13 @@ declare module '@tanstack/react-router' {
       path: '/admins'
       fullPath: '/admin/admins'
       preLoaderRoute: typeof AdminAdminsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/before-after': {
+      id: '/admin/before-after'
+      path: '/before-after'
+      fullPath: '/admin/before-after'
+      preLoaderRoute: typeof AdminBeforeAfterRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/doctors': {
@@ -505,6 +544,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminAdminsRoute: typeof AdminAdminsRoute
+  AdminBeforeAfterRoute: typeof AdminBeforeAfterRoute
   AdminDoctorsRoute: typeof AdminDoctorsRoute
   AdminGalleryRoute: typeof AdminGalleryRoute
   AdminHelpRoute: typeof AdminHelpRoute
@@ -518,6 +558,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAdminsRoute: AdminAdminsRoute,
+  AdminBeforeAfterRoute: AdminBeforeAfterRoute,
   AdminDoctorsRoute: AdminDoctorsRoute,
   AdminGalleryRoute: AdminGalleryRoute,
   AdminHelpRoute: AdminHelpRoute,
@@ -535,6 +576,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
+  BeforeAfterRoute: BeforeAfterRoute,
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
   ProductsRoute: ProductsRoute,
