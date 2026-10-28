@@ -1,13 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
-import { Instagram, MapPin, Navigation, Phone } from "lucide-react";
-import { mapDirections, mapEmbed, servicesQuery, settingsQuery } from "@/lib/content";
+import { Instagram, MapPin, Phone } from "lucide-react";
+import { mapEmbed, servicesQuery, settingsQuery } from "@/lib/content";
 import { telHref } from "@/lib/phone";
 import { seo } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/site/Reveal";
 import { AppointmentForm } from "@/components/site/AppointmentForm";
+import { Directions } from "@/components/site/Directions";
 
 const searchSchema = z.object({ service: z.string().optional() });
 
@@ -49,11 +50,14 @@ function Contact() {
               <h2 className="mb-3 text-lg">آدرس</h2>
               <p className="flex items-start gap-2"><MapPin className="mt-1.5 h-4 w-4 shrink-0 text-primary" aria-hidden />{s.clinic.address}</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                <Button asChild variant="hero"><a href={mapDirections(s.clinic.address)} target="_blank" rel="noopener noreferrer"><Navigation />مسیریابی</a></Button>
+                 <Directions clinic={s.clinic} />
                 <Button asChild variant="soft"><a href={s.clinic.instagram} target="_blank" rel="noopener noreferrer"><Instagram />اینستاگرام</a></Button>
               </div>
             </div>
-            <iframe title="نقشه مجتمع پردیس" src={mapEmbed(s.clinic.address)} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-72 w-full rounded-2xl border-0 shadow-soft" />
+             <div>
+               <iframe title="نقشه مجتمع پردیس" src={mapEmbed(s.clinic.address)} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-72 w-full rounded-2xl border-0 shadow-soft" />
+               <p className="mt-3 text-sm text-muted-foreground">اگر نقشه نمایش داده نشد، از دکمه‌های نشان یا بلد استفاده کنید.</p>
+             </div>
           </div>
         </div>
       </section>
