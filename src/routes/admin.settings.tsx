@@ -8,9 +8,12 @@ import { settingsQuery, type SiteSettings } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { inputCls } from "@/components/admin/ContentManager";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { isOptionalHttpsUrl } from "@/lib/map-links";
+import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/admin/settings")({
   loader: ({ context }) => context.queryClient.ensureQueryData(settingsQuery),
+  head: () => ({ meta: [...seo("تنظیمات سایت", "مدیریت اطلاعات و تصاویر مجتمع پزشکی و زیبایی پردیس."), { name: "robots", content: "noindex, nofollow" }] }),
   component: Settings,
 });
 
