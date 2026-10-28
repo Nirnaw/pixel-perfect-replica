@@ -1,14 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Instagram, MapPin, Navigation } from "lucide-react";
+import { Instagram, MapPin } from "lucide-react";
 
-import { doctorsQuery, galleryQuery, mapDirections, mapEmbed, postsQuery, productsQuery, servicesQuery, settingsQuery } from "@/lib/content";
+import { doctorsQuery, galleryQuery, mapEmbed, postsQuery, productsQuery, servicesQuery, settingsQuery } from "@/lib/content";
 import { seo } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
 import { PostCard, ServiceCard } from "@/components/site/Cards";
 import { BeforeAfterEmpty, BeforeAfterPair } from "@/components/site/BeforeAfter";
 import { Initials, SafeImg } from "@/components/site/SafeImg";
+import { Directions } from "@/components/site/Directions";
 
 export const Route = createFileRoute("/")({
   loader: ({ context: { queryClient } }) =>
@@ -53,9 +54,7 @@ function Home() {
               <Button asChild variant="soft" size="xl">
                 <Link to="/contact">{s.hero.secondary_cta}</Link>
               </Button>
-              <Button asChild variant="outline" size="xl">
-                <a href={mapDirections(s.clinic.address)} target="_blank" rel="noopener noreferrer"><Navigation />مسیریابی تا کلینیک</a>
-              </Button>
+              <Directions clinic={s.clinic} dropdown size="xl" />
             </div>
           </div>
           <div className="relative">
@@ -75,19 +74,6 @@ function Home() {
             <Link to="/about" className="mt-4 inline-block text-primary hover:underline">آشنایی با پزشکان مجموعه</Link>
           </div>
         </Reveal>
-      </section>
-
-      {/* Services */}
-      <section className="section-y">
-        <div className="container-page">
-          <SectionHeading title="پزشکان مجموعه" />
-          <div className="grid gap-6 md:grid-cols-2">
-            {doctors.map((doctor) => <Link key={doctor.id} to="/about" className="flex min-w-0 items-start gap-4 rounded-lg bg-card p-5 shadow-soft">
-              {doctor.image_url ? <SafeImg src={doctor.image_url} alt={doctor.name} className="h-20 w-20 shrink-0 rounded-lg object-cover" /> : <Initials name={doctor.name} className="h-20 w-20 shrink-0 rounded-lg" />}
-              <div className="min-w-0"><h3 className="text-lg">{doctor.name}</h3><p className="text-sm text-primary">{doctor.role}</p><p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{doctor.bio}</p></div>
-            </Link>)}
-          </div>
-        </div>
       </section>
 
       <section className="section-y">
@@ -134,6 +120,19 @@ function Home() {
         </section>
       )}
 
+      {/* Services */}
+      <section className="section-y">
+        <div className="container-page">
+          <SectionHeading title="پزشکان مجموعه" />
+          <div className="grid gap-6 md:grid-cols-2">
+            {doctors.map((doctor) => <Link key={doctor.id} to="/about" className="flex min-w-0 items-start gap-4 rounded-lg bg-card p-5 shadow-soft">
+              {doctor.image_url ? <SafeImg src={doctor.image_url} alt={doctor.name} className="h-20 w-20 shrink-0 rounded-lg object-cover" /> : <Initials name={doctor.name} className="h-20 w-20 shrink-0 rounded-lg" />}
+              <div className="min-w-0"><h3 className="text-lg">{doctor.name}</h3><p className="text-sm text-primary">{doctor.role}</p><p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{doctor.bio}</p></div>
+            </Link>)}
+          </div>
+        </div>
+      </section>
+
       {/* Blog */}
       {posts.length > 0 && (
         <section className="section-y">
@@ -176,9 +175,7 @@ function Home() {
             <SectionHeading eyebrow="آدرس" title="مسیر رسیدن به پردیس" />
             <p className="flex items-start gap-2"><MapPin className="mt-1.5 h-5 w-5 shrink-0 text-primary" aria-hidden />{s.clinic.address}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Button asChild variant="hero" size="xl">
-                <a href={mapDirections(s.clinic.address)} target="_blank" rel="noopener noreferrer"><Navigation />مسیریابی</a>
-              </Button>
+              <Directions clinic={s.clinic} size="xl" />
               <Button asChild variant="soft" size="xl">
                 <a href={s.clinic.instagram} target="_blank" rel="noopener noreferrer"><Instagram />اینستاگرام پردیس</a>
               </Button>
@@ -186,6 +183,7 @@ function Home() {
           </Reveal>
           <Reveal>
             <iframe title="نقشه مجتمع پردیس" src={mapEmbed(s.clinic.address)} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-80 w-full rounded-2xl border-0 shadow-soft" />
+            <p className="mt-3 text-sm text-muted-foreground">اگر نقشه نمایش داده نشد، از دکمه‌های نشان یا بلد استفاده کنید.</p>
           </Reveal>
         </div>
       </section>

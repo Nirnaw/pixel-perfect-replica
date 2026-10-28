@@ -9,6 +9,8 @@ export type SiteSettings = {
     address: string;
     instagram: string;
     instagram_handle: string;
+    neshan_url?: string;
+    balad_url?: string;
     phones: Phone[];
   };
   hero: {

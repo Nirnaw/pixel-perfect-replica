@@ -12,3 +12,4 @@
 - Admin account management uses authenticated server functions, validates admin roles through the caller-scoped client before loading privileged clients, and removes roles through a serialized database function/trigger to protect self and last-admin access.
 - ContentManager fields default empty text to empty strings; nullable database fields opt in explicitly, avoiding NOT NULL save failures.
 - Before/after views share a small paired-image component; the dedicated admin view filters the existing gallery table rather than creating another content store.
+- Clinic navigation shares one link builder and Directions control across the home and contact pages; use the existing Radix menu for accessible hero choices and keep optional map URLs in clinic settings so the owner can edit them.
