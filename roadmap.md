@@ -1,4 +1,7 @@
 # Roadmap
+- [ ] Move only the home doctors section after the gallery
+- [ ] Add optional editable Neshan/Balad URLs and navigation choices
+- [ ] Verify navigation, mobile layout, and existing tests
 - [ ] Add authenticated admin management with self/last-admin protection
 - [ ] Fix empty text/null handling across admin forms
 - [ ] Public/home/admin before-after views and unpublished examples
