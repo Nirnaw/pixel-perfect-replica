@@ -78,6 +78,10 @@ function Settings() {
       toast.error("نشانی اینستاگرام باید با https:// شروع شود.");
       return;
     }
+    if (!isOptionalHttpsUrl(s.clinic.neshan_url) || !isOptionalHttpsUrl(s.clinic.balad_url)) {
+      toast.error("لینک نشان و بلد باید نشانی معتبر با https:// باشند؛ یا خالی بمانند.");
+      return;
+    }
     setBusy(true);
     const keys = ["clinic", "hero", "about", "disclaimer"] as const;
     for (const k of keys) {
@@ -113,6 +117,18 @@ function Settings() {
           value={s.clinic.address}
           onChange={(v) => up("clinic", { address: v })}
           area
+        />
+        <T
+          label="لینک نشان"
+          value={s.clinic.neshan_url ?? ""}
+          onChange={(v) => up("clinic", { neshan_url: v })}
+          ltr
+        />
+        <T
+          label="لینک بلد"
+          value={s.clinic.balad_url ?? ""}
+          onChange={(v) => up("clinic", { balad_url: v })}
+          ltr
         />
         <T
           label="نشانی اینستاگرام"
