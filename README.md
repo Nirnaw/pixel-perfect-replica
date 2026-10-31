@@ -98,3 +98,11 @@ Nitro is currently pinned to `3.0.260603-beta`; upgrades should be tested explic
 Optional external resources include Google Fonts, map links/embeds, and gallery
 video embeds. Preview-auth and error-reporting helpers still contain optional
 Lovable editor hooks; normal standalone hosting does not require that editor.
+
+## Independent PostgreSQL foundation (Phase 2)
+
+The optional PostgreSQL 17/Drizzle foundation is documented in
+[docs/database.md](docs/database.md), including local Compose startup, migrations,
+repeatable seeds, and `npm run test:db`. It does not replace any existing Supabase
+application behavior yet. Historical cloud migrations are preserved under
+`archive/supabase`; do not apply them to plain PostgreSQL.
