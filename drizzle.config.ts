@@ -4,7 +4,6 @@ export default defineConfig({
   dialect: "postgresql",
   schema: "./drizzle/schema.ts",
   out: "./drizzle/migrations",
-  dbCredentials: {
-    url: process.env.LOVABLE_DB_MIGRATION_URL ?? "",
-  },
+  // Generation needs no connection. Apply migrations via db:migrate, not push.
+  dbCredentials: { url: process.env["DATABASE_MIGRATION_URL"] ?? "" },
 });
